@@ -1,100 +1,256 @@
 import Head from 'next/head'
+import { useRef, useEffect } from 'react'
+
+
 
 export default function Home() {
+
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+
+    var f = new FontFace("LexendDeca", 'url(https://fonts.gstatic.com/s/lexenddeca/v3/K2F1fZFYk-dHSE0UPPuwQ5qnJy8.woff2)');
+
+    f.load().then(function() {
+
+      const canvas = canvasRef.current
+      const context = canvas.getContext('2d')
+
+      const scene = ParticleShift.Scene.create({
+        selector: '#banner',
+        particle_size: 2,
+        particle_type: 'circ',
+        step_width: 6,
+        draw_width: 768,
+        draw_height: 190
+      })
+
+      scene.canvas = canvas
+      scene.context = context
+
+      let mousepos = {x:0, y:0}
+
+      canvas.addEventListener('mousemove', function(e){
+        mousepos = {x: e.clientX, y: e.clientY}
+      })
+
+      const sphere = ParticleShift.Body.create({
+        x: 500,
+        y: 300,
+        radius: 50,
+        force: -0.75,
+        update: function(scene, ctx){
+          let scenePos = scene.canvas.getBoundingClientRect();
+          let x = mousepos.x - scenePos.left
+          let y = mousepos.y - scenePos.top
+          this.x = ((x / scene.draw_multiplier) * scene.canvas.width / scene.canvas.clientWidth)
+          this.y = ((y / scene.draw_multiplier) * scene.canvas.width / scene.canvas.clientWidth)
+        },
+        draw: function(scene, ctx){
+
+        }
+      })
+
+      const screen1 = ParticleShift.Screen.create(scene, {
+        bodies: [sphere],
+        render: function(scene, ctx){
+          ctx.font = '160px Lexend Deca'
+          ctx.fillStyle = 'black';
+          ctx.fillText('Particle', 80, 135)
+        }
+      })
+
+      const screen2 = ParticleShift.Screen.create(scene, {
+        bodies: [sphere],
+        render: function(scene, ctx){
+          ctx.fillText('Shift.js', 110, 135)
+        }
+      })
+
+      function play1(){
+        scene.play_screen(screen1)
+        window.setTimeout(function(){
+          play2()
+        },3000)
+      }
+
+      function play2(){
+        scene.play_screen(screen2)
+        window.setTimeout(function(){
+          play1()
+        },3000)
+      }
+
+      play1()
+
+    });
+
+  }, [])
+
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>Particle Shift - JavaScript library for creation particle transitions</title>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet" />
         <link rel="icon" href="/favicon.ico" />
+        <script crossOrigin src="https://cdn.jsdelivr.net/gh/ihansson/particle-shift@1.0.1/dist/particle-shift.min.js"></script>
       </Head>
 
-      <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <div className="container">
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+        <main>
 
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+          <div className="grid">
 
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+            <canvas id="banner" ref={canvasRef} />
 
+            <header className="intro">
+
+              <h1 className="title">
+                Particle Shift
+              </h1>
+
+              <p className="description margin">
+                Particle shift is a library for creating animations with simple particle systems. Can be used to transition between any scene drawn onto a 2d canvas context, whether it be text, images, svgs, or just drawn shapes.
+              </p>
+
+              <div>
+                <a className="btn" href="https://github.com/ihansson/particle-shift">Github</a> <a className="btn" href="https://ianhan.com/">Ian Hansson</a>
+              </div>
+
+            </header>
+
+            <article>
+
+              <h2>Basic Example</h2>
+
+              <p className="margin">The scene in particle shift represents the canvas for the particle system and is used to controlled what is drawn and when. The most important properties of the scene are the particle_size and step_width which will control the level of detail of the particle system.</p>
+
+              <div className="margin example"></div>
+
+              <a className="btn" href="#">Replay</a> <a className="btn" href="#">Code</a>
+
+            </article>
+
+            <article>
+
+              <h2>Basic Example</h2>
+
+              <p className="margin">The scene in particle shift represents the canvas for the particle system and is used to controlled what is drawn and when. The most important properties of the scene are the particle_size and step_width which will control the level of detail of the particle system.</p>
+
+              <div className="margin example"></div>
+
+              <a className="btn" href="#">Replay</a> <a className="btn" href="#">Code</a>
+
+            </article>
+
+            <article>
+
+              <h2>Basic Example</h2>
+
+              <p className="margin">The scene in particle shift represents the canvas for the particle system and is used to controlled what is drawn and when. The most important properties of the scene are the particle_size and step_width which will control the level of detail of the particle system.</p>
+
+              <div className="margin example"></div>
+
+              <a className="btn" href="#">Replay</a> <a className="btn" href="#">Code</a>
+
+            </article>
+
+          </div>
+
+        </main>
+
+        <footer>
           <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="card"
+            href="https://ianhan.com/"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
+            &copy; 2020 Ian Hansson
           </a>
+        </footer>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+      </div>
 
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
-
-      <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
+      <style jsx global>{`
+        html,
+        body {
+          padding: 0;
+          margin: 0;
+          font-family: 'Lexend Deca', sans-serif;
+          background: linear-gradient(#6bf4f4 0%, #a8f7b8 100%);
+          background-repeat: no-repeat;
+          background-attachment: fixed;
         }
 
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
+        h1,h2,h3,h4,h5,h6,p,ul {
+          margin: 0;
+        }
+
+        .margin {
+          margin: 1.1em 0;
+        }
+
+        .margin:first-child {
+          margin-top: 0;
+        }
+
+        .margin:last-child {
+          margin-bottom: 0;
+        }
+
+        .container {
+          margin: 0 auto 1em;
+          padding: 0 0.5em;
+          max-width: 50em;
+        }
+
+        .intro {
+          background: rgba(255,255,255,0.8);
+          padding: 1.5em 2.4em 2em;
+          border-radius: 0.5em;
+          margin: 0 0 0.5em;
+          box-shadow: 0 1px 1px rgba(0,0,0,0.06), 
+              0 2px 2px rgba(0,0,0,0.06), 
+              0 4px 4px rgba(0,0,0,0.06), 
+              0 8px 8px rgba(0,0,0,0.06),
+              0 16px 16px rgba(0,0,0,0.06);
+        }
+
+        article {
+          padding: 2em 2.4em;
+          margin: 1em 0;
+        }
+
+        article + article {
+          border-top: 1px solid rgba(0,0,0,0.25);
+        }
+
+        .btn {
+          display: inline-block;
+          border-radius: 2em;
+          padding: 0.75em 1.4em;
+          background: rgba(0,0,0,0.1);
+          color: inherit;
+          font-size: 0.9em;
+        }
+
+        .example {
+          background: rgba(0,0,0,0.5);
+          height: 250px;
+          border-radius: 0.5em;
         }
 
         footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          text-align: center;
         }
 
-        footer img {
-          margin-left: 0.5rem;
+        header a {
+          color: #333;
         }
 
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
+        nav a {
+          display: block;
         }
 
         a {
@@ -102,106 +258,13 @@ export default function Home() {
           text-decoration: none;
         }
 
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
-        .title {
-          margin: 0;
-          line-height: 1.15;
-          font-size: 4rem;
-        }
-
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
-        }
-
-        .logo {
-          height: 1em;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
+        body * {
           box-sizing: border-box;
+        }
+
+        #banner {
+          width: 100%;
+          margin-top: 1.5em;
         }
       `}</style>
     </div>
