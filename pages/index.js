@@ -1,11 +1,13 @@
 import Head from 'next/head'
-import { useRef, useEffect } from 'react'
-
+import { useRef, useEffect } from 'react';
+import SyntaxHighlighter from 'react-syntax-highlighter';
 
 
 export default function Home() {
 
   const canvasRef = useRef(null)
+
+  const code = 'console.log("test")';
 
   useEffect(() => {
 
@@ -93,7 +95,7 @@ export default function Home() {
         <title>Particle Shift - JavaScript library for creation particle transitions</title>
         <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet" />
         <link rel="icon" href="/favicon.ico" />
-        <script crossOrigin src="https://cdn.jsdelivr.net/gh/ihansson/particle-shift@1.0.1/dist/particle-shift.min.js"></script>
+        <script crossOrigin="true" src="https://cdn.jsdelivr.net/gh/ihansson/particle-shift@1.0.1/dist/particle-shift.min.js"></script>
       </Head>
 
       <div className="container">
@@ -107,7 +109,7 @@ export default function Home() {
             <header className="intro">
 
               <h1 className="title">
-                Particle Shift
+                Particle Shift Demo <br/>(under construction until nov 9)
               </h1>
 
               <p className="description margin">
@@ -128,7 +130,11 @@ export default function Home() {
 
               <div className="margin example"></div>
 
-              <a className="btn" href="#">Replay</a> <a className="btn" href="#">Code</a>
+              <SyntaxHighlighter language="javascript">
+                {code}
+              </SyntaxHighlighter>
+
+              <a className="btn alt" href="#">Play</a> <a className="btn" href="#">Code</a>
 
             </article>
 
@@ -140,7 +146,7 @@ export default function Home() {
 
               <div className="margin example"></div>
 
-              <a className="btn" href="#">Replay</a> <a className="btn" href="#">Code</a>
+              <a className="btn alt" href="#">Play</a> <a className="btn" href="#">Code</a>
 
             </article>
 
@@ -152,7 +158,7 @@ export default function Home() {
 
               <div className="margin example"></div>
 
-              <a className="btn" href="#">Replay</a> <a className="btn" href="#">Code</a>
+              <a className="btn alt" href="#">Play</a> <a className="btn" href="#">Code</a>
 
             </article>
 
@@ -178,7 +184,7 @@ export default function Home() {
           padding: 0;
           margin: 0;
           font-family: 'Lexend Deca', sans-serif;
-          background: linear-gradient(#6bf4f4 0%, #a8f7b8 100%);
+          background: linear-gradient(to left, #dcf1f2, #f4e8e8);
           background-repeat: no-repeat;
           background-attachment: fixed;
         }
@@ -233,6 +239,10 @@ export default function Home() {
           background: rgba(0,0,0,0.1);
           color: inherit;
           font-size: 0.9em;
+        }
+
+        .btn.alt {
+          background: #79e0b0;
         }
 
         .example {
