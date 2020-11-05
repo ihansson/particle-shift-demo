@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useRef, useEffect } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
+import Layout from '../components/layout'
 
 
 export default function Home() {
@@ -90,7 +91,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="container">
+    <Layout>
       <Head>
         <title>Particle Shift - JavaScript library for creation particle transitions</title>
         <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet" />
@@ -178,105 +179,6 @@ export default function Home() {
 
       </div>
 
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: 'Lexend Deca', sans-serif;
-          background: linear-gradient(to left, #dcf1f2, #f4e8e8);
-          background-repeat: no-repeat;
-          background-attachment: fixed;
-        }
-
-        h1,h2,h3,h4,h5,h6,p,ul {
-          margin: 0;
-        }
-
-        .margin {
-          margin: 1.1em 0;
-        }
-
-        .margin:first-child {
-          margin-top: 0;
-        }
-
-        .margin:last-child {
-          margin-bottom: 0;
-        }
-
-        .container {
-          margin: 0 auto 1em;
-          padding: 0 0.5em;
-          max-width: 50em;
-        }
-
-        .intro {
-          background: rgba(255,255,255,0.8);
-          padding: 1.5em 2.4em 2em;
-          border-radius: 0.5em;
-          margin: 0 0 0.5em;
-          box-shadow: 0 1px 1px rgba(0,0,0,0.06), 
-              0 2px 2px rgba(0,0,0,0.06), 
-              0 4px 4px rgba(0,0,0,0.06), 
-              0 8px 8px rgba(0,0,0,0.06),
-              0 16px 16px rgba(0,0,0,0.06);
-        }
-
-        article {
-          padding: 2em 2.4em;
-          margin: 1em 0;
-        }
-
-        article + article {
-          border-top: 1px solid rgba(0,0,0,0.25);
-        }
-
-        .btn {
-          display: inline-block;
-          border-radius: 2em;
-          padding: 0.75em 1.4em;
-          background: rgba(0,0,0,0.1);
-          color: inherit;
-          font-size: 0.9em;
-        }
-
-        .btn.alt {
-          background: #79e0b0;
-        }
-
-        .example {
-          background: rgba(0,0,0,0.5);
-          height: 250px;
-          border-radius: 0.5em;
-        }
-
-        footer {
-          text-align: center;
-        }
-
-        header a {
-          color: #333;
-        }
-
-        nav a {
-          display: block;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
-
-        body * {
-          box-sizing: border-box;
-        }
-
-        #banner {
-          width: 100%;
-          margin-top: 1.5em;
-        }
-      `}</style>
-    </div>
+    </Layout>
   )
 }
