@@ -4,7 +4,6 @@ import { useRef, useEffect } from 'react';
 import renderBanner from '../lib/renderBanner'
 import renderWithFont from '../lib/renderWithFont'
 
-import Layout from '../components/Layout'
 import Example from '../components/Example'
 
 export default function Home() {
@@ -16,7 +15,7 @@ export default function Home() {
   useEffect(renderWithFont(renderBanner, canvasRef), [])
 
   return (
-    <Layout>
+    <div>
       <Head>
         <title>Particle Shift - JavaScript library for creation particle transitions</title>
         <meta name="Description" content="Canvas rendering of particles and transitions between them based on text / images / svgs." />
@@ -81,6 +80,6 @@ export default function Home() {
 
       </div>
 
-    </Layout>
+    </div>
   )
 }
