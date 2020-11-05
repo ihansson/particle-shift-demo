@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import { useRef, useEffect } from 'react';
-import Layout from '../components/Layout'
-import Example from '../components/Example'
+
 import renderBanner from '../lib/renderBanner'
 import renderWithFont from '../lib/renderWithFont'
+
+import Layout from '../components/Layout'
+import Example from '../components/Example'
 
 export default function Home() {
 
