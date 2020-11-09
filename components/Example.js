@@ -1,6 +1,25 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
+import { useState, useRef, useEffect } from 'react';
+import ParticleShiftCanvas from './ParticleShiftCanvas'
+import renderWithFont from '../lib/renderWithFont'
 
 export default function Example(props) {
+	const [codeToggle, setCodeToggle] = useState(false);
+
+	const canvasRef = useRef(null)
+
+	useEffect(renderWithFont(props.render, canvasRef, props.id), [])
+
+	function playScene(){
+
+		let canvas = canvasRef.current
+	    canvas.scene.play_screen(canvas.screens[0])
+	    window.setTimeout(function(){
+	    	canvas.scene.play_screen(canvas.screens[1])
+	    },3000)
+
+	}
+
 	return (
 	<article>
 
@@ -10,13 +29,16 @@ export default function Example(props) {
 			<p className="margin">{props.description}</p>
 		}
 
-		<div className="margin example"></div>
+		<ParticleShiftCanvas id={props.id} canvasRef={canvasRef} />
 
-		<SyntaxHighlighter language="javascript">
-		{props.code}
-		</SyntaxHighlighter>
+		<button onClick={playScene} className="btn alt" href="#">Play</button> 
+		<button onClick={() => setCodeToggle(!codeToggle)} className={['btn',codeToggle ? 'active' : 'inactive'].join(' ')} href="#">Code</button>
 
-		<a className="btn alt" href="#">Play</a> <a className="btn" href="#">Code</a>
+		{codeToggle && 
+			<SyntaxHighlighter language="javascript">
+			{props.code}
+			</SyntaxHighlighter>
+		}
 
 	</article>
 	);

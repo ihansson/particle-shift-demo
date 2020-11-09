@@ -2,6 +2,9 @@ import Head from 'next/head'
 import { useRef, useEffect } from 'react';
 
 import renderBanner from '../lib/renderBanner'
+import renderExample1 from '../lib/renderExample1'
+import renderExample2 from '../lib/renderExample2'
+import renderExample3 from '../lib/renderExample3'
 import renderWithFont from '../lib/renderWithFont'
 
 import Example from '../components/Example'
@@ -12,7 +15,7 @@ export default function Home() {
 
   const code = 'console.log("test")';
 
-  useEffect(renderWithFont(renderBanner, canvasRef), [])
+  useEffect(renderWithFont(renderBanner, canvasRef, 'banner'), [])
 
   return (
     <div>
@@ -49,19 +52,27 @@ export default function Home() {
             </header>
 
             <Example 
-              title="Basic"
-              description="The scene in particle shift represents the canvas for the particle system and is used to controlled what is drawn and when. The most important properties of the scene are the particle_size and step_width which will control the level of detail of the particle system."
+              title="Text Transition"
+              description="This basic examples creates two scenes with different text and then plays them 2000ms apart."
               code={code} 
+              render={renderExample1}
+              id="example-1"
               />
 
             <Example 
-              title="Basic 2"
+              title="SVG and Color"
+              description="In this example we show that you can add anything to canvas and particle shift will transition between them. Here we have an SVG and gradient coloured text."
               code={code} 
+              render={renderExample2}
+              id="example-2"
               />
 
             <Example 
-              title="Basic 3"
+              title="Mouse Interaction"
+              description="Particle shift allows for some interaction to be created with the addition of Bodies to the particle system."
               code={code} 
+              render={renderExample3}
+              id="example-3"
               />
 
           </div>
