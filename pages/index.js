@@ -1,10 +1,9 @@
 import Head from 'next/head'
 import { useRef, useEffect } from 'react';
-
 import renderBanner from '../lib/renderBanner'
-import renderExample1 from '../lib/renderExample1'
-import renderExample2 from '../lib/renderExample2'
-import renderExample3 from '../lib/renderExample3'
+import { renderExample1, renderExample1Code} from '../lib/renderExample1'
+import { renderExample2, renderExample2Code} from '../lib/renderExample2'
+import { renderExample3, renderExample3Code} from '../lib/renderExample3'
 import renderWithFont from '../lib/renderWithFont'
 
 import Example from '../components/Example'
@@ -12,8 +11,6 @@ import Example from '../components/Example'
 export default function Home() {
 
   const canvasRef = useRef(null)
-
-  const code = 'console.log("test")';
 
   useEffect(renderWithFont(renderBanner, canvasRef, 'banner'), [])
 
@@ -54,23 +51,23 @@ export default function Home() {
             <Example 
               title="Text Transition"
               description="This basic examples creates two scenes with different text and then plays them 2000ms apart."
-              code={code} 
+              code={renderExample1Code} 
               render={renderExample1}
               id="example-1"
               />
 
             <Example 
-              title="SVG and Color"
-              description="In this example we show that you can add anything to canvas and particle shift will transition between them. Here we have an SVG and gradient coloured text."
-              code={code} 
+              title="SVG, Gradients and Particle Variations"
+              description="In this example we show that you can add anything to canvas and particle shift will transition between them. Here we have an SVG and gradient coloured text. You can also change the shape, size, and distance between the particles. <strong>Note:</strong> If you are using custom fonts or images you will need to preload them before trying to make the scene."
+              code={renderExample2Code} 
               render={renderExample2}
               id="example-2"
               />
 
             <Example 
-              title="Mouse Interaction"
-              description="Particle shift allows for some interaction to be created with the addition of Bodies to the particle system."
-              code={code} 
+              title="Mouse Interaction and Bodies"
+              description="Particle shift allows for some interaction to be created with the addition of Bodies to the particle system. In this example we bind the position of a body to the mouse position."
+              code={renderExample3Code} 
               render={renderExample3}
               id="example-3"
               />

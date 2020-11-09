@@ -26,7 +26,7 @@ export default function Example(props) {
 		<h2>{props.title}</h2>
 
 		{props.description && 
-			<p className="margin">{props.description}</p>
+			<p className="margin" dangerouslySetInnerHTML={{__html: props.description}}></p>
 		}
 
 		<ParticleShiftCanvas id={props.id} canvasRef={canvasRef} />
