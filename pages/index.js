@@ -35,7 +35,7 @@ export default function Home() {
             <header className="intro">
 
               <h1 className="title">
-                Particle Shift Demo <br/>(under construction until nov 9)
+                Particle Shift Demo
               </h1>
 
               <p className="description margin">
